@@ -3573,6 +3573,23 @@ body[data-page="product-a3uv"] .pd-hero-image img {
         display: block;
     }
     .lang-switcher {
+        display: block;
+    }
+    .lang-btn {
+        display: inline-flex;
+        padding: 6px 12px;
+        font-size: 12px;
+        max-width: 130px;
+        color: #f5f5f7;
+        border-color: rgba(245, 245, 247, 0.55);
+        background: rgba(245, 245, 247, 0.12);
+    }
+    .lang-btn > span {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+    .lang-btn > i {
         display: none;
     }
     .header-actions .btn-header {

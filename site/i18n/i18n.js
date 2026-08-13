@@ -19,28 +19,71 @@
             { code: 'vi', name: 'Tiếng Việt', flag: '🇻🇳' }
         ],
 
+        // country -> language map (mirrors server.js COUNTRY_LANG)
+        countryCodeToLang: {
+            CN: 'zh', TW: 'zh', HK: 'zh', MO: 'zh', SG: 'zh',
+            JP: 'ja', KR: 'ko',
+            RU: 'ru', BY: 'ru', KZ: 'ru', UA: 'ru',
+            SA: 'ar', AE: 'ar', EG: 'ar', QA: 'ar', KW: 'ar', BH: 'ar', OM: 'ar', JO: 'ar', LB: 'ar', IQ: 'ar', YE: 'ar', SY: 'ar', MA: 'ar', DZ: 'ar', TN: 'ar', LY: 'ar', SD: 'ar', PS: 'ar',
+            TH: 'th', VN: 'vi',
+            FR: 'fr', BE: 'fr', CH: 'fr', LU: 'fr', MC: 'fr', CA: 'fr',
+            DE: 'de', AT: 'de', LI: 'de',
+            ES: 'es', MX: 'es', AR: 'es', CO: 'es', CL: 'es', PE: 'es', VE: 'es', EC: 'es', GT: 'es', CU: 'es', BO: 'es', DO: 'es', HN: 'es', PY: 'es', SV: 'es', NI: 'es', CR: 'es', PA: 'es', UY: 'es', PR: 'es',
+            PT: 'pt', BR: 'pt', AO: 'pt', MZ: 'pt', CV: 'pt', GW: 'pt', ST: 'pt', TL: 'pt'
+        },
+
         init: function () {
+            var self = this;
             var saved = localStorage.getItem('xincai_lang');
             if (saved && this.isValidLang(saved)) {
                 this.currentLang = saved;
-            } else {
-                // IP-based detection: server sets xincai_lang cookie from the visitor's country
-                var cookieLang = this.getCookie('xincai_lang');
-                if (cookieLang && this.isValidLang(cookieLang)) {
-                    this.currentLang = cookieLang;
+                this.loadAndApply(saved);
+                return;
+            }
+            // Server sets xincai_lang cookie from the visitor's country (may be absent if edge-cached)
+            var cookieLang = this.getCookie('xincai_lang');
+            if (cookieLang && this.isValidLang(cookieLang)) {
+                this.currentLang = cookieLang;
+                this.loadAndApply(cookieLang);
+                return;
+            }
+            // No preference yet — detect country from the visitor's own IP in the browser.
+            // Runs client-side so it works even when the server middleware / edge cache misses.
+            this.detectLangFromIp(function (lang) {
+                if (lang) {
+                    self.loadAndApply(lang);
                 } else {
                     var browserLang = (navigator.language || navigator.userLanguage || 'zh').substring(0, 2);
-                    if (this.isValidLang(browserLang)) {
-                        this.currentLang = browserLang;
-                    }
+                    self.loadAndApply(self.isValidLang(browserLang) ? browserLang : 'zh');
                 }
-            }
-            this.loadAndApply(this.currentLang);
+            });
         },
 
         getCookie: function (name) {
             var match = document.cookie.match(new RegExp('(?:^|; )' + name + '=([^;]*)'));
             return match ? decodeURIComponent(match[1]) : '';
+        },
+
+        detectLangFromIp: function (cb) {
+            if (!window.fetch) return cb(null);
+            var self = this;
+            var done = false;
+            var timer = setTimeout(function () {
+                if (!done) { done = true; cb(null); }
+            }, 3000);
+            fetch('https://ipwho.is/', { headers: { 'Accept': 'application/json' } })
+                .then(function (r) { return r.json(); })
+                .then(function (data) {
+                    if (done) return;
+                    done = true;
+                    clearTimeout(timer);
+                    if (data && data.success && data.country_code && data.country_code.length === 2) {
+                        cb(self.countryCodeToLang[data.country_code] || null);
+                    } else {
+                        cb(null);
+                    }
+                })
+                .catch(function () { if (!done) { done = true; cb(null); } });
         },
 
         isValidLang: function (code) {

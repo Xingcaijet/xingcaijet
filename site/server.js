@@ -390,7 +390,7 @@ if (isProduction) {
                 fontSrc: ["'self'", "https://fonts.gstatic.com", "https://cdnjs.cloudflare.com", "data:"],
                 imgSrc: ["'self'", "data:", "https://img.youtube.com", "https://i.ytimg.com", "https://*.ggpht.com"],
                 frameSrc: ["'self'", "https://www.youtube.com", "https://www.youtube-nocookie.com"],
-                connectSrc: ["'self'", "https://www.youtube.com", "https://api.allorigins.win", "https://corsproxy.io", "https://api.codetabs.com", "https://cors.eu.org", "https://cors-anywhere.herokuapp.com"],
+                connectSrc: ["'self'", "https://www.youtube.com", "https://ipwho.is", "https://api.allorigins.win", "https://corsproxy.io", "https://api.codetabs.com", "https://cors.eu.org", "https://cors-anywhere.herokuapp.com"],
                 mediaSrc: ["'self'", "blob:"]
             }
         },
