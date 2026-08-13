@@ -1,0 +1,6 @@
+node_modules/
+data/leads.json
+.DS_Store
+*.log
+.git/
+.claude/

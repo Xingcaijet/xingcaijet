@@ -1,0 +1,9 @@
+不上传/
+处理后的文件/
+上传到独立站/
+兴彩资料.docx
+.git/
+.claude/
+.DS_Store
+*.log
+node_modules/

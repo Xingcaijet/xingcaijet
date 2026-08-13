@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 420" role="img" aria-labelledby="title desc">
+  <title id="title">XINCAIJET location map</title>
+  <desc id="desc">Static location map card for XINCAIJET in Zhongshan, Guangdong.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#172033"/>
+      <stop offset="0.48" stop-color="#0f1728"/>
+      <stop offset="1" stop-color="#1b273d"/>
+    </linearGradient>
+    <linearGradient id="water" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#0a6d91" stop-opacity="0.7"/>
+      <stop offset="1" stop-color="#17a2b8" stop-opacity="0.38"/>
+    </linearGradient>
+    <filter id="shadow" x="-30%" y="-30%" width="160%" height="160%">
+      <feDropShadow dx="0" dy="18" stdDeviation="16" flood-color="#000" flood-opacity="0.35"/>
+    </filter>
+  </defs>
+  <rect width="960" height="420" fill="url(#bg)"/>
+  <path d="M-40 336 C120 292 210 365 362 318 C525 268 637 342 804 287 C913 250 1000 268 1040 255 L1040 460 L-40 460 Z" fill="url(#water)"/>
+  <g opacity="0.28" fill="none" stroke="#94a3b8" stroke-width="2">
+    <path d="M75 80 H875"/>
+    <path d="M65 148 H895"/>
+    <path d="M45 224 H925"/>
+    <path d="M98 302 H862"/>
+    <path d="M170 38 V392"/>
+    <path d="M324 34 V386"/>
+    <path d="M486 28 V392"/>
+    <path d="M650 40 V382"/>
+    <path d="M798 28 V398"/>
+  </g>
+  <g fill="none" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M70 340 C190 270 278 312 390 235 C510 153 612 178 735 98 C805 53 875 48 926 62" stroke="#f8fafc" stroke-opacity="0.58" stroke-width="10"/>
+    <path d="M60 160 C160 132 224 170 318 136 C417 100 491 55 597 76 C715 100 790 176 900 145" stroke="#60a5fa" stroke-opacity="0.72" stroke-width="8"/>
+    <path d="M238 390 C274 290 343 248 420 218 C518 179 552 114 607 42" stroke="#f59e0b" stroke-opacity="0.72" stroke-width="7"/>
+    <path d="M452 382 C500 304 574 262 660 243 C755 222 812 185 900 105" stroke="#22c55e" stroke-opacity="0.62" stroke-width="7"/>
+  </g>
+  <g opacity="0.74" fill="#cbd5e1">
+    <rect x="94" y="108" width="92" height="38" rx="8"/>
+    <rect x="214" y="72" width="76" height="54" rx="8"/>
+    <rect x="688" y="296" width="106" height="44" rx="8"/>
+    <rect x="766" y="210" width="78" height="46" rx="8"/>
+    <rect x="378" y="88" width="84" height="42" rx="8"/>
+  </g>
+  <g filter="url(#shadow)">
+    <circle cx="595" cy="178" r="58" fill="#ef4444" opacity="0.2"/>
+    <path d="M595 91 C638 91 672 124 672 166 C672 221 595 310 595 310 C595 310 518 221 518 166 C518 124 552 91 595 91 Z" fill="#ef4444"/>
+    <circle cx="595" cy="166" r="27" fill="#fff"/>
+    <circle cx="595" cy="166" r="12" fill="#ef4444"/>
+  </g>
+  <g font-family="Arial, sans-serif">
+    <rect x="42" y="42" width="300" height="96" rx="18" fill="#020617" opacity="0.72"/>
+    <text x="66" y="84" fill="#ffffff" font-size="28" font-weight="700">XINCAIJET</text>
+    <text x="66" y="115" fill="#cbd5e1" font-size="18">Zhongshan, Guangdong</text>
+    <rect x="656" y="38" width="248" height="42" rx="21" fill="#ffffff" opacity="0.9"/>
+    <text x="684" y="65" fill="#0f172a" font-size="18" font-weight="700">Static location preview</text>
+  </g>
+</svg>

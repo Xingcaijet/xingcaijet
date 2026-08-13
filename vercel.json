@@ -1,0 +1,30 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "version": 2,
+  "installCommand": "npm ci --prefix site",
+  "builds": [
+    {
+      "src": "site/server.js",
+      "use": "@vercel/node",
+      "config": {
+        "includeFiles": [
+          "site/*.html",
+          "site/*.css",
+          "site/*.js",
+          "site/*.svg",
+          "site/admin/**",
+          "site/i18n/**",
+          "site/images/**",
+          "site/videos/**",
+          "site/vendor/**"
+        ]
+      }
+    }
+  ],
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "site/server.js"
+    }
+  ]
+}

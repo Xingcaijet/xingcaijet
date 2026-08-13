@@ -1,0 +1,7 @@
+node_modules/
+data/leads.json
+data/youtube-videos.json
+data/config.json
+.DS_Store
+*.log
+.env

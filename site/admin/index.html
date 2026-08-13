@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>兴彩数码 - 后台管理</title>
+    <link rel="icon" type="image/svg+xml" href="../favicon.svg">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="/admin-xincai/static/style.css">
+</head>
+<body>
+    <div id="loginPage" class="login-page">
+        <div class="login-card">
+            <div class="login-logo">
+                <h1>xingcaijiet</h1>
+                <p>后台管理系统</p>
+            </div>
+            <form id="loginForm">
+                <div class="login-field">
+                    <label>用户名</label>
+                    <input type="text" id="loginUser" placeholder="请输入用户名" required>
+                </div>
+                <div class="login-field">
+                    <label>密码</label>
+                    <input type="password" id="loginPass" placeholder="请输入密码" required>
+                </div>
+                <div class="login-error hidden" id="loginError">用户名或密码错误</div>
+                <button type="submit" class="login-btn">登录</button>
+            </form>
+        </div>
+    </div>
+
+    <div id="adminApp" class="admin-app hidden">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <h2>xingcaijiet</h2>
+                <span class="sidebar-sub">管理后台</span>
+            </div>
+            <nav class="sidebar-nav">
+                <a href="#" class="sidebar-link active" data-view="dashboard"><i class="fas fa-tachometer-alt"></i> 控制台</a>
+                <a href="#" class="sidebar-link" data-view="leads"><i class="fas fa-users"></i> 客户线索</a>
+                <a href="#" class="sidebar-link" data-view="settings"><i class="fas fa-cog"></i> 设置</a>
+            </nav>
+            <div class="sidebar-footer">
+                <button id="logoutBtn" class="logout-btn"><i class="fas fa-sign-out-alt"></i> 退出登录</button>
+            </div>
+        </aside>
+
+        <main class="admin-main">
+            <header class="admin-header">
+                <h1 id="pageTitle">控制台</h1>
+                <div class="admin-user">
+                    <i class="fas fa-user-circle"></i>
+                    <span id="adminUsername">admin</span>
+                </div>
+            </header>
+
+            <div id="dashboardView" class="admin-view">
+                <div class="stats-grid">
+                    <div class="stat-card"><div class="stat-icon blue"><i class="fas fa-users"></i></div><div class="stat-info"><span class="stat-number" id="statTotal">0</span><span class="stat-label">总线索数</span></div></div>
+                    <div class="stat-card"><div class="stat-icon green"><i class="fas fa-plus-circle"></i></div><div class="stat-info"><span class="stat-number" id="statNew">0</span><span class="stat-label">新线索</span></div></div>
+                    <div class="stat-card"><div class="stat-icon orange"><i class="fas fa-phone"></i></div><div class="stat-info"><span class="stat-number" id="statContacted">0</span><span class="stat-label">已联系</span></div></div>
+                    <div class="stat-card"><div class="stat-icon gray"><i class="fas fa-check-circle"></i></div><div class="stat-info"><span class="stat-number" id="statClosed">0</span><span class="stat-label">已关闭</span></div></div>
+                </div>
+                <div class="recent-section">
+                    <h2>最新线索</h2>
+                    <div class="table-wrap">
+                        <table class="data-table">
+                            <thead><tr><th>姓名</th><th>国家</th><th>感兴趣产品</th><th>提交时间</th><th>状态</th></tr></thead>
+                            <tbody id="recentTableBody"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <div id="leadsView" class="admin-view hidden">
+                <div class="leads-toolbar">
+                    <div class="leads-filters">
+                        <button class="filter-btn active" data-filter="all">全部</button>
+                        <button class="filter-btn" data-filter="new">新线索</button>
+                        <button class="filter-btn" data-filter="contacted">已联系</button>
+                        <button class="filter-btn" data-filter="closed">已关闭</button>
+                    </div>
+                    <div class="leads-search">
+                        <i class="fas fa-search"></i>
+                        <input type="text" id="searchInput" placeholder="搜索姓名、国家、邮箱...">
+                    </div>
+                </div>
+                <div class="table-wrap">
+                    <table class="data-table">
+                        <thead><tr><th>姓名</th><th>国家</th><th>邮箱</th><th>电话</th><th>感兴趣产品</th><th>提交时间</th><th>状态</th><th>操作</th></tr></thead>
+                        <tbody id="leadsTableBody"></tbody>
+                    </table>
+                </div>
+                <div class="pagination" id="pagination"></div>
+            </div>
+
+            <div id="settingsView" class="admin-view hidden">
+                <div class="settings-section">
+                    <h2><i class="fas fa-user-edit"></i> 修改用户名</h2>
+                    <form id="changeUsernameForm" class="settings-form">
+                        <div class="settings-field">
+                            <label>新用户名</label>
+                            <input type="text" id="newUsername" placeholder="输入新用户名" required minlength="3" maxlength="30">
+                        </div>
+                        <div class="settings-field">
+                            <label>当前密码（确认身份）</label>
+                            <input type="password" id="usernamePassword" placeholder="输入当前密码" required>
+                        </div>
+                        <div class="settings-msg hidden" id="usernameMsg"></div>
+                        <button type="submit" class="settings-btn">保存用户名</button>
+                    </form>
+                </div>
+                <div class="settings-section">
+                    <h2><i class="fas fa-lock"></i> 修改密码</h2>
+                    <form id="changePasswordForm" class="settings-form">
+                        <div class="settings-field">
+                            <label>当前密码</label>
+                            <input type="password" id="currentPassword" placeholder="输入当前密码" required>
+                        </div>
+                        <div class="settings-field">
+                            <label>新密码</label>
+                            <input type="password" id="newPassword" placeholder="输入新密码（至少 6 位）" required minlength="6">
+                        </div>
+                        <div class="settings-field">
+                            <label>确认新密码</label>
+                            <input type="password" id="confirmPassword" placeholder="再次输入新密码" required minlength="6">
+                        </div>
+                        <div class="settings-msg hidden" id="passwordMsg"></div>
+                        <button type="submit" class="settings-btn">保存密码</button>
+                    </form>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <div id="detailModal" class="modal hidden">
+        <div class="modal-overlay"></div>
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>线索详情</h2>
+                <button class="modal-close" id="modalClose"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="modal-body" id="modalBody"></div>
+            <div class="modal-footer">
+                <button class="modal-btn secondary" id="modalCloseBtn">关闭</button>
+                <button class="modal-btn primary" id="modalStatusBtn">标记已联系</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="/admin-xincai/static/admin.js"></script>
+</body>
+</html>

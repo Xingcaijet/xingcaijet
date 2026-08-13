@@ -1,0 +1,17 @@
+node_modules/
+__pycache__/
+*.pyc
+.venv/
+venv/
+.env
+.DS_Store
+*.log
+不上传/
+处理后的文件/
+上传到独立站/
+兴彩资料.docx
+.playwright-mcp/
+.trae/
+.claude/
+.vercel
+.env*
