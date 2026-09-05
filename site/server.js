@@ -382,6 +382,8 @@ function authMiddleware(req, res, next) {
 
 if (isProduction) {
     app.use(helmet({
+        // 关闭 X-Frame-Options（不支持域名白名单），改用 CSP frame-ancestors 允许作品集站点嵌入预览
+        frameguard: false,
         contentSecurityPolicy: {
             directives: {
                 defaultSrc: ["'self'"],
@@ -391,7 +393,8 @@ if (isProduction) {
                 imgSrc: ["'self'", "data:", "https://img.youtube.com", "https://i.ytimg.com", "https://*.ggpht.com"],
                 frameSrc: ["'self'", "https://www.youtube.com", "https://www.youtube-nocookie.com"],
                 connectSrc: ["'self'", "https://www.youtube.com", "https://ipwho.is", "https://api.allorigins.win", "https://corsproxy.io", "https://api.codetabs.com", "https://cors.eu.org", "https://cors-anywhere.herokuapp.com"],
-                mediaSrc: ["'self'", "blob:"]
+                mediaSrc: ["'self'", "blob:"],
+                frameAncestors: ["'self'", "https://ki-resume.vercel.app", "https://liangfengki.com", "https://www.liangfengki.com"]
             }
         },
         referrerPolicy: {
